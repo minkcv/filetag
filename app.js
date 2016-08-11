@@ -4,9 +4,26 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+    host: 'localhost',
+    user: 'file_tag_user',
+    password: 'file_tag_password',
+    database: 'file_tag_database'
+});
+
+con.connect(function(err){
+    if(err){
+        console.log('Error connecting to Database');
+        return
+    }
+    console.log('Database connection established');
+});
+
+con.end(function(err){});
 
 var app = express();
 
